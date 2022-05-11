@@ -64,6 +64,7 @@ service CoLink {
     // Represent user to sign a decision for this task.
     // Sync the decision to the initiator.
     // Send task status to MQ.
+    // The task will be ignored if is_approved and is_rejected are both false in the decision.
     // In request, task_id is required.
     // Require user JWT.
     rpc ConfirmTask (ConfirmTaskRequest) returns (Empty);
