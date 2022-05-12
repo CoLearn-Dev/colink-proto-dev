@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.MY_PAT }}
+          github-token: ${{ secrets.PAT_TOKEN }}
           script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: 'CoLearn-Dev',
               repo: 'CoLearn-Dev.github.io',
-              workflow_id: 'repository_dispatch_config.yaml',
+              workflow_id: 'gh-pages.yml',
               ref: 'main'
             })
