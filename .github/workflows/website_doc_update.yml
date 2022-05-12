@@ -15,6 +15,6 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: 'CoLearn-Dev',
               repo: 'CoLearn-Dev.github.io',
-              workflow_id: '.github/workflows/repository_dispatch_config.yaml',
+              workflow_id: 'repository_dispatch_config.yaml',
               ref: 'main'
             })
