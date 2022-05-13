@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: Copy the proto file 
-        run: cp colink.proto ../colink.proto
-
       - name: SSH Agent
         run: |
           eval `ssh-agent`
@@ -24,7 +20,7 @@ jobs:
       - name: Enter the repo folder
         run: cd CoLearn-Dev.github.io
       - name: Paste the proto file back
-        run: mv ../../colink.proto ./colink.proto
+        run: cp ../colink.proto ./colink.proto
 
       - name: Download protoc
         run: curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
