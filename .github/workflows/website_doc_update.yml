@@ -40,7 +40,7 @@ jobs:
         run: mv _index.md CoLearn-Dev.github.io/content/en/docs/ProtocolDoc/_index.md
       - name: Add back the index file
         working-directory: ./CoLearn-Dev.github.io
-        run: git add CoLearn-Dev.github.io/content/en/docs/ProtocolDoc/_index.md
+        run: git add content/en/docs/ProtocolDoc/_index.md
       - name: Set pusher e-mail (a must-do)
         run: git config --global user.email "action@github.com"
       - name: Set pusher name (a must-do)
