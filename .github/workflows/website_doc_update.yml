@@ -3,8 +3,59 @@ on:
   push:
     branches:
       - main
+      - trigger
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Copy the proto file 
+        run: cp colink.proto ../colink.proto
+
+      - name: SSH Agent
+        run: |
+          eval `ssh-agent`
+          ssh-add - <<< "${{ secrets.SSH_KEY }}"
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
+      - name: Clone website repository
+        run: git clone git@github.com:CoLearn-Dev/CoLearn-Dev.github.io.git
+      - name: Paste the proto file back
+        run: mv ../colink.proto ./colink.proto
+
+      - name: Download protoc
+        run: curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
+      - name: Unzip protoc/Install protoc
+        run: sudo unzip -o protoc-3.14.0-linux-x86_64.zip -d /usr/local bin/protoc
+      - name: Install protoc
+        run: sudo unzip -o protoc-3.14.0-linux-x86_64.zip -d /usr/local 'include/*'
+
+      - name: Download pre-built binary for protoc-gen-doc
+        run: curl -OL https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.5.1/protoc-gen-doc_1.5.1_linux_amd64.tar.gz
+      - name: Unzip binary
+        run: tar -xf protoc-gen-doc_1.5.1_linux_amd64.tar.gz
+      - name: Generate doc
+        run: sudo protoc --plugin=protoc-gen-doc=./protoc-gen-doc --doc_out=./ --doc_opt=markdown,_index.md ./colink.proto
+      - name: Delete first line of the generated doc(to use a different title)
+        run: sed -i '1,1d' _index.md
+      - name: Insert web title at the beginning
+        run: "echo -e '---\n title: \x22gRPC Service Specification\x22 \n linkTitle: \x22gRPC Service Specification\x22 \n weight: 8 \n description: > \n\x09 Read the documentation for gRPC data types and service interfaces. \n--- \n' | cat - _index.md > temp && mv temp _index.md"
+
+
+      - name: Move to correct folder
+        run: mv _index.md content/en/docs/ProtocolDoc/_index.md
+      - name: Add back the index file
+        run: git add content/en/docs/ProtocolDoc/_index.md
+      - name: Set pusher e-mail (a must-do)
+        run: git config --global user.email "action@github.com"
+      - name: Set pusher name (a must-do)
+        run: git config --global user.name "Github Actions"
+      - name: Commit
+        run: git commit -m "Auto-generate doc"
+      - name: Push
+        run: git push
+
   dispatch:
     runs-on: ubuntu-latest
     steps:
