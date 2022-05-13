@@ -26,7 +26,7 @@ jobs:
       - name: Delete first line of the generated doc(to use a different title)
         run: sed -i '1,1d' _index.md
       - name: Insert web title at the beginning
-        run: "echo -e '---\n title: \x22gRPC Service Specification\x22 \n linkTitle: \x22gRPC Service Specification\x22 \n weight: 8 \n description: > \n Read the documentation for gRPC data types and service interfaces. \n--- \n' | cat - _index.md > temp && mv temp _index.md"
+        run: "echo -e '---\n title: \x22gRPC Service Specification\x22 \n linkTitle: \x22gRPC Service Specification\x22 \n weight: 8 \n description: > \n  Read the documentation for gRPC data types and service interfaces. \n--- \n' | cat - _index.md > temp && mv temp _index.md"
 
       - name: SSH Agent
         run: |
