@@ -21,6 +21,8 @@ jobs:
           echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
       - name: Clone website repository
         run: git clone git@github.com:CoLearn-Dev/CoLearn-Dev.github.io.git
+      - name: Enter the repo folder
+        run: cd CoLearn-Dev.github.io
       - name: Paste the proto file back
         run: mv ../colink.proto ./colink.proto
 
