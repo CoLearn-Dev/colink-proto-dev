@@ -2,8 +2,8 @@ name: Website Documentation Update
 on:
   push:
     branches:
-      - main
       - trigger
+      - main
 
 jobs:
   dispatch:
