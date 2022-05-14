@@ -38,9 +38,9 @@ jobs:
         working-directory: ./CoLearn-Dev.github.io
         run: git add content/en/docs/ProtocolDoc/_index.md
       - name: Set pusher e-mail (a must-do)
-        run: git config --global user.email "action@github.com"
+        run: git config --global user.email "104302037+colearn-dev-bot@users.noreply.github.com"
       - name: Set pusher name (a must-do)
-        run: git config --global user.name "Github Actions"
+        run: git config --global user.name "colearn-dev-bot"
       - name: Commit
         working-directory: ./CoLearn-Dev.github.io
         run: git commit -m "Auto-generate doc"
