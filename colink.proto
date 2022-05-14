@@ -8,7 +8,7 @@ service CoLink {
     rpc RefreshToken (RefreshTokenRequest) returns (Jwt);
 
     // Generates a JWT from a user with a public/secret key pair.
-    // The generated JWT specify the user's role as a user, contains their user_id, which is a base64 encoding of the provided public key.
+    // The generated JWT specifies the user's role as a user, contains their user_id, which is a base64 encoding of the provided public key.
     // Requires admin Jwt.
     rpc ImportUser (UserConsent) returns (Jwt);
 
