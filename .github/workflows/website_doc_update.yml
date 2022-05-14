@@ -16,7 +16,6 @@ jobs:
         run: sudo unzip -o protoc-3.14.0-linux-x86_64.zip -d /usr/local bin/protoc
       - name: Install protoc
         run: sudo unzip -o protoc-3.14.0-linux-x86_64.zip -d /usr/local 'include/*'
-
       - name: Download pre-built binary for protoc-gen-doc
         run: curl -OL https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.5.1/protoc-gen-doc_1.5.1_linux_amd64.tar.gz
       - name: Unzip binary
@@ -27,7 +26,6 @@ jobs:
         run: sed -i '1,1d' _index.md
       - name: Insert web title at the beginning
         run: "echo -e '---\n title: \x22gRPC Service Specification\x22 \n linkTitle: \x22gRPC Service Specification\x22 \n weight: 8 \n description: > \n  Read the documentation for gRPC data types and service interfaces. \n--- \n' | cat - _index.md > temp && mv temp _index.md"
-
       - name: SSH Agent
         run: |
           eval `ssh-agent`
@@ -35,7 +33,6 @@ jobs:
           echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
       - name: Clone website repository
         run: git clone git@github.com:CoLearn-Dev/CoLearn-Dev.github.io.git
-
       - name: Move to correct folder
         run: mv _index.md CoLearn-Dev.github.io/content/en/docs/ProtocolDoc/_index.md
       - name: Add back the index file
