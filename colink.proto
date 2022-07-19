@@ -8,7 +8,7 @@ service CoLink {
     rpc GenerateToken (GenerateTokenRequest) returns (Jwt);
 
     // Generates a JWT from a user with a public/secret key pair.
-    // The generated JWT specifies the user's role as a user, contains their user_id, which is a base64 encoding of the provided public key.
+    // The generated JWT specifies the user's privilege as a user, contains their user_id, which is a base64 encoding of the provided public key.
     // Requires host JWT.
     rpc ImportUser (UserConsent) returns (Jwt);
 
@@ -104,7 +104,7 @@ service CoLink {
 message Empty {}
 
 /**
- * JSON Web Token (JWT) that is used to authenticate a user. The JWT the user's role, user_id - which is the base64 encoding of the public key - and the expiration time.
+ * JSON Web Token (JWT) that is used to authenticate a user. The JWT the user's privilege, user_id - which is the base64 encoding of the public key - and the expiration time.
  */
 message Jwt {
     string jwt = 1;
