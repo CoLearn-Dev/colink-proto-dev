@@ -5,7 +5,7 @@ service CoLink {
     // Given a valid JWT and a expiration timestamp, generates a new JWT token with the expiration time set to the input timestamp.
     // Requires user jwt.
     // You cannot refresh an host JWT.
-    rpc RefreshToken (RefreshTokenRequest) returns (Jwt);
+    rpc GenerateToken (GenerateTokenRequest) returns (Jwt);
 
     // Generates a JWT from a user with a public/secret key pair.
     // The generated JWT specifies the user's role as a user, contains their user_id, which is a base64 encoding of the provided public key.
@@ -54,7 +54,7 @@ service CoLink {
     // Generate a task_id for this task.
     // Represent user(initiator) to sign a decision for this task.
     // Sync this task with other participants.
-    // Send task status to MQ.
+    // Update task status in storage.
     // In request, protocol_name, protocol_param, participants are required. parent_task is optional.
     // In response, only task_id will be included.
     // Require user JWT.
@@ -63,14 +63,14 @@ service CoLink {
     // A participant confirms a task.
     // Represent user to sign a decision for this task.
     // Sync the decision to the initiator.
-    // Send task status to MQ.
+    // Update task status in storage.
     // The task will be ignored if is_approved and is_rejected are both false in the decision.
     // In request, task_id is required.
     // Require user JWT.
     rpc ConfirmTask (ConfirmTaskRequest) returns (Empty);
 
     // A participant finishes a task.
-    // Send task status to MQ.
+    // Update task status in storage.
     // In request, task_id is required.
     // Require user JWT.
     rpc FinishTask (Task) returns (Empty);
@@ -97,6 +97,7 @@ service CoLink {
     // If all participants' decisions are received and it is the initiator, sync the decisions to other participants.
     // If all participants' decisions are received, send task status to MQ.
     // The task status in the request should be ignored even if it exists.
+    // Require guest or user JWT.
     rpc InterCoreSyncTask (Task) returns (Empty);
 }
 
@@ -136,9 +137,11 @@ message StorageEntries {
  *
  * The old token is contained in the header of this request, under the 'authorization' field.
  */
-message RefreshTokenRequest {
+message GenerateTokenRequest {
     // The new expiration time for the token, in unix timestamp format.
     int64 expiration_time = 1;
+    // The privilege of the generated jwt.
+    string privilege = 2;
 }
 
 /** 
@@ -172,8 +175,8 @@ message ReadKeysRequest {
 message Participant {
     // The user id of this participant.
     string user_id = 1;
-    // Type of this participant in the protocol.
-    string ptype = 2;
+    // Role of this participant in the protocol.
+    string role = 2;
 }
 
 message Decision {
