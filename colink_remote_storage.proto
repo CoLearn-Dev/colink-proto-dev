@@ -1,5 +1,5 @@
 syntax = "proto3";
-package remote_storage;
+package colink_remote_storage;
 
 message CreateParams {
     string remote_key_name = 1;

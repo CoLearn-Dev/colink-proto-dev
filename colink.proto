@@ -2,9 +2,9 @@ syntax = "proto3";
 package colink;
 
 service CoLink {
-    // Given a valid JWT and a expiration timestamp, generates a new JWT token with the expiration time set to the input timestamp.
+    // Given a valid JWT and a expiration timestamp, generates a new JWT with the expiration time set to the input timestamp.
     // Requires user jwt.
-    // You cannot refresh an host JWT.
+    // You cannot refresh a host JWT.
     rpc GenerateToken (GenerateTokenRequest) returns (Jwt);
 
     // Generates a JWT from a user with a public/secret key pair.
@@ -104,7 +104,7 @@ service CoLink {
 message Empty {}
 
 /**
- * JSON Web Token (JWT) that is used to authenticate a user. The JWT the user's privilege, user_id - which is the base64 encoding of the public key - and the expiration time.
+ * JSON Web Token (JWT) that is used to authenticate a user. The JWT encodes the user's privilege, user_id - which is the base64 encoding of the public key - and the expiration time.
  */
 message Jwt {
     string jwt = 1;
