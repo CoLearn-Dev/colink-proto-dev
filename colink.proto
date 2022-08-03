@@ -2,7 +2,7 @@ syntax = "proto3";
 package colink;
 
 service CoLink {
-    // Given a valid JWT and a expiration timestamp, generates a new JWT token with the expiration time set to the input timestamp.
+    // Given a valid JWT and a expiration timestamp, generates a new JWT with the expiration time set to the input timestamp.
     // Requires user jwt.
     // You cannot refresh an host JWT.
     rpc GenerateToken (GenerateTokenRequest) returns (Jwt);
