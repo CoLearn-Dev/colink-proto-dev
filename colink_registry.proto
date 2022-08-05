@@ -10,7 +10,7 @@ message Registries {
     repeated Registry registries = 1;
 }
 
-message User {
+message UserRecord {
     string user_id = 1;
     string core_addr = 2;
     string guest_jwt = 3;
