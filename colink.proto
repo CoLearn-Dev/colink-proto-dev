@@ -56,7 +56,7 @@ service CoLink {
     // Sync this task with other participants.
     // Update task status in storage.
     // In request, protocol_name, protocol_param, participants are required. parent_task is optional.
-    // In response, only task_id will be included.
+    // In response, only task_id is included.
     // Require user JWT.
     rpc CreateTask (Task) returns (Task);
 
@@ -64,7 +64,7 @@ service CoLink {
     // Represent user to sign a decision for this task.
     // Sync the decision to the initiator.
     // Update task status in storage.
-    // The task will be ignored if is_approved and is_rejected are both false in the decision.
+    // The task is ignored if is_approved and is_rejected are both false in the decision.
     // In request, task_id is required.
     // Require user JWT.
     rpc ConfirmTask (ConfirmTaskRequest) returns (Empty);
@@ -77,11 +77,11 @@ service CoLink {
 
     // Request the information of the core, including the URI of MQ, and the public key of the core.
     // Return MQ Information optionally and core public key for this user.
-    // JWT is optional: when request includes jwt, the uri of mq will be returned.
+    // JWT is optional: when the request includes jwt, the uri of mq is returned.
     rpc RequestCoreInfo (Empty) returns (CoreInfo);
 
     // Subscribe to changes in the storage.
-    // It will let you subscribe to all changes of key_name in storage since start_timestamp.
+    // It lets you subscribe to all changes of key_name in storage since start_timestamp.
     // The subscription message is formatted in SubscriptionMessage.
     // Require user JWT.
     rpc Subscribe (SubscribeRequest) returns (MQQueueName);
@@ -89,6 +89,18 @@ service CoLink {
     // Unsubscribe the changes in the storage.
     // Require user JWT.
     rpc Unsubscribe (MQQueueName) returns (Empty);
+
+    // Start a protocol operator.
+    // It returns a unique instance_id for the newly started operator.
+    // In request, protocol_name and user_id are required.
+    // In response, only instance_id is included.
+    // Require user or host JWT.
+    rpc StartProtocolOperator (ProtocolOperatorInstance) returns (ProtocolOperatorInstance);
+
+    // Stop a protocol operator.
+    // Only instance_id is required.
+    // Require user or host JWT.
+    rpc StopProtocolOperator (ProtocolOperatorInstance) returns (Empty);
 
     // InterCore RPC.
     // Sync a task.
@@ -256,4 +268,10 @@ message CoLinkInternalTaskIDWithKeyPath {
 
 message CoLinkInternalTaskIDList {
     repeated CoLinkInternalTaskIDWithKeyPath task_ids_with_key_paths = 1;
+}
+
+message ProtocolOperatorInstance {
+    string instance_id = 1;
+    string protocol_name = 2;
+    string user_id = 3;
 }
