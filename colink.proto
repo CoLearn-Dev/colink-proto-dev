@@ -91,11 +91,14 @@ service CoLink {
     rpc Unsubscribe (MQQueueName) returns (Empty);
 
     // Start a protocol operator.
-    // It will return a unique id for the newly started operator.
+    // It will return a unique instance_id for the newly started operator.
+    // In request, protocol_name and user_id are required.
+    // In response, only instance_id will be included.
     // Require user or host JWT.
     rpc StartProtocolOperator (ProtocolOperatorInstance) returns (ProtocolOperatorInstance);
 
     // Stop a protocol operator.
+    // Only instance_id is required.
     // Require user or host JWT.
     rpc StopProtocolOperator (ProtocolOperatorInstance) returns (Empty);
 
