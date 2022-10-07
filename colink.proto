@@ -93,14 +93,14 @@ service CoLink {
     // Start a protocol operator.
     // It returns a unique instance_id for the newly started operator.
     // In request, protocol_name and user_id are required.
-    // In response, only instance_id is included.
+    // In response, instance_id is included.
     // Require user or host JWT.
-    rpc StartProtocolOperator (ProtocolOperatorInstance) returns (ProtocolOperatorInstance);
+    rpc StartProtocolOperator (StartProtocolOperatorRequest) returns (ProtocolOperatorInstanceId);
 
     // Stop a protocol operator.
-    // Only instance_id is required.
+    // In request, instance_id is required.
     // Require user or host JWT.
-    rpc StopProtocolOperator (ProtocolOperatorInstance) returns (Empty);
+    rpc StopProtocolOperator (ProtocolOperatorInstanceId) returns (Empty);
 
     // InterCore RPC.
     // Sync a task.
@@ -270,8 +270,12 @@ message CoLinkInternalTaskIDList {
     repeated CoLinkInternalTaskIDWithKeyPath task_ids_with_key_paths = 1;
 }
 
-message ProtocolOperatorInstance {
+message StartProtocolOperatorRequest {
+    string protocol_name = 1;
+    string user_id = 2;
+    bool upgrade = 3;
+}
+
+message ProtocolOperatorInstanceId {
     string instance_id = 1;
-    string protocol_name = 2;
-    string user_id = 3;
 }
