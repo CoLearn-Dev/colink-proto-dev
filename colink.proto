@@ -115,6 +115,26 @@ service CoLink {
 
 message Empty {}
 
+message ListOfString {
+    repeated string list = 1;
+}
+
+message ListOfBytes {
+    repeated bytes list = 1;
+}
+
+message ListOfInt64 {
+    repeated int64 list = 1;
+}
+
+message ListOfFloat {
+    repeated float list = 1;
+}
+
+message ListOfBool {
+    repeated bool list = 1;
+}
+
 /**
  * JSON Web Token (JWT) that is used to authenticate a user. The JWT encodes the user's privilege, user_id - which is the base64 encoding of the public key - and the expiration time.
  */
