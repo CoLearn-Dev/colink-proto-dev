@@ -77,8 +77,9 @@ service CoLink {
 
     // Request the information of the core, including the URI of MQ, and the public key of the core.
     // Return MQ Information optionally and core public key for this user.
+    // Also return the IP address of the requestor.
     // JWT is optional: when the request includes jwt, the uri of mq is returned.
-    rpc RequestCoreInfo (Empty) returns (CoreInfo);
+    rpc RequestInfo (Empty) returns (RequestInfoResponse);
 
     // Subscribe to changes in the storage.
     // It lets you subscribe to all changes of key_name in storage since start_timestamp.
@@ -253,11 +254,13 @@ message ConfirmTaskRequest{
     Decision decision = 2;
 }
 
-message CoreInfo {
+message RequestInfoResponse {
     // The URI of MQ.
     string mq_uri = 1;
     // The public key of the core, serialized in compact (default) form.
     bytes core_public_key = 2;
+    // The IP address of the requestor.
+    string requestor_ip = 3;
 }
 
 message SubscribeRequest {
