@@ -115,7 +115,8 @@ service CoLink {
 
     // InterCore RPC.
     // Same as InterCoreSyncTask and create a reverse connection.
-    // The requestor of this RPC grants guest privilege for this reverse connection.
+    // When A uses this RPC to sync a task with B, it creates a reverse connection from B to A.
+    // When B uses that reverse connection to sync tasks with A, B would not need to use a JWT, and A automatically assumes that B has guest privilege.
     // Require guest or user JWT.
     rpc InterCoreSyncTaskWithReverseConnection (Task) returns (stream Task);
 }
