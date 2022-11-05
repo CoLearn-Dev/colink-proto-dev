@@ -268,6 +268,8 @@ message RequestInfoResponse {
     bytes core_public_key = 2;
     // The IP address of the requestor.
     string requestor_ip = 3;
+    // The version of the core.
+    string version = 4;
 }
 
 message SubscribeRequest {
