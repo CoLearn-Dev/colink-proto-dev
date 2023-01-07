@@ -6,7 +6,7 @@ import "google/protobuf/wrappers.proto";
 message Rule {
     string rule_id = 1;
     TaskFilter task_filter = 2;
-    string action = 3;
+    Action action = 3;
     int32 priority = 4;
 }
 
@@ -17,6 +17,11 @@ message TaskFilter {
     string role = 4;
     TaskFilter parent_task_filter = 5;
     google.protobuf.BoolValue require_agreement = 6;
+}
+
+message Action {
+    string type = 1;
+    string forward_target_keyname = 2;
 }
 
 message Settings {
