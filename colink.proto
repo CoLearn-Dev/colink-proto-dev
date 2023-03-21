@@ -308,6 +308,9 @@ message StartProtocolOperatorRequest {
     string protocol_name = 1;
     string user_id = 2;
     bool upgrade = 3;
+    string source_type = 4;
+    string deploy_mode = 5;
+    string source = 6;
 }
 
 message ProtocolOperatorInstanceId {
