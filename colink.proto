@@ -311,6 +311,7 @@ message StartProtocolOperatorRequest {
     string source_type = 4;
     string deploy_mode = 5;
     string source = 6;
+    string vt_public_addr = 7;
 }
 
 message ProtocolOperatorInstanceId {
