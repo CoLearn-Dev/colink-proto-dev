@@ -304,11 +304,17 @@ message CoLinkInternalTaskIDList {
     repeated CoLinkInternalTaskIDWithKeyPath task_ids_with_key_paths = 1;
 }
 
+enum StartProtocolOperatorSourceType{
+    TGZ = 0;
+    GIT = 1;
+    DOCKER = 2;
+}
+
 message StartProtocolOperatorRequest {
     string protocol_name = 1;
     string user_id = 2;
     bool upgrade = 3;
-    string source_type = 4;
+    StartProtocolOperatorSourceType source_type = 4;
     string deploy_mode = 5;
     string source = 6;
     string vt_public_addr = 7;
