@@ -305,9 +305,10 @@ message CoLinkInternalTaskIDList {
 }
 
 enum StartProtocolOperatorSourceType{
-    TGZ = 0;
-    GIT = 1;
-    DOCKER = 2;
+    NONE = 0;
+    TGZ = 1;
+    GIT = 2;
+    DOCKER = 3;
 }
 
 message StartProtocolOperatorRequest {
